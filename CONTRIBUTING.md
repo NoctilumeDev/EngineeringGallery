@@ -17,6 +17,8 @@ Do not repair a product bug only in its Gallery copy. Fix and qualify it in the 
 
 ## Adding an exhibit
 
+Start with the [Exhibit Construction Guide](docs/EXHIBIT_CONSTRUCTION_GUIDE.md). It defines the shared boundaries and the project-specific decisions that must be made before applying the checklist below.
+
 An exhibit addition must:
 
 1. bind an exact upstream commit or immutable tag;

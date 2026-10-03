@@ -10,7 +10,7 @@ This repository is not a monorepo for ongoing development and not a replacement 
 
 ## What lives here
 
-Each qualified exhibit will appear as an ordinary directory under [`projects/`](projects/README.md) and will contain:
+Each project projection will appear as an ordinary directory under [`projects/`](projects/README.md) and will contain:
 
 - a clean source projection from an exact upstream coordinate;
 - concise English documentation;
@@ -19,7 +19,7 @@ Each qualified exhibit will appear as an ordinary directory under [`projects/`](
 - origin and license provenance;
 - a project-scoped version and changelog.
 
-No Git submodules are used. A normal clone must contain the complete released projection.
+No Git submodules are used. A normal clone must contain the complete projection. Directory presence alone does not make that projection a qualified or cataloged exhibit.
 
 ## Information ownership
 
@@ -59,7 +59,7 @@ exact upstream commit or tag
         -> project-scoped release
 ```
 
-Until then, the project remains absent from `projects/` and is not listed as available here.
+Until the candidate path begins, the project remains absent from `projects/`. A complete candidate projection may be present during qualification, but it is not listed as available until its Release has been read back and its catalog record is effective.
 
 See [Projection Policy](PROJECTION_POLICY.md) and [Release Policy](RELEASE_POLICY.md) for the binding rules.
 
@@ -77,6 +77,7 @@ See [English Documentation](docs/ENGLISH_DOCUMENTATION.md).
 
 ## Repository guides
 
+- [Exhibit Construction Guide](docs/EXHIBIT_CONSTRUCTION_GUIDE.md)
 - [Information Architecture](docs/INFORMATION_ARCHITECTURE.md)
 - [Projection Policy](PROJECTION_POLICY.md)
 - [Release Policy](RELEASE_POLICY.md)

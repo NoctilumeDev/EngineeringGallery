@@ -12,6 +12,7 @@ const requiredRootFiles = [
   "CONTRIBUTING.md",
   "PROJECTION_POLICY.md",
   "RELEASE_POLICY.md",
+  "docs/EXHIBIT_CONSTRUCTION_GUIDE.md",
   "docs/INFORMATION_ARCHITECTURE.md",
   "docs/ENGLISH_DOCUMENTATION.md",
   "projects/README.md",
@@ -79,13 +80,20 @@ for (const filePath of textFiles) {
 
 const markdownFiles = textFiles.filter((filePath) => path.extname(filePath) === ".md");
 const cjkPattern = /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]/u;
+const allowedCjkLiterals = ["中文说明"];
 
 for (const filePath of markdownFiles) {
   const content = fs.readFileSync(filePath, "utf8");
   const file = relative(filePath);
+  const cjkCheckedContent = allowedCjkLiterals.reduce(
+    (current, literal) => current.replaceAll(literal, ""),
+    content,
+  );
 
-  if (cjkPattern.test(content)) {
-    errors.push(`${file}: Gallery Markdown must be English-first and contains CJK text`);
+  if (cjkPattern.test(cjkCheckedContent)) {
+    errors.push(
+      `${file}: Gallery Markdown contains CJK text outside the approved Chinese-edition link label`,
+    );
   }
 
   const linkPattern = /!?\[[^\]]*\]\(([^)]+)\)/g;
@@ -189,4 +197,7 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log(`Gallery verification passed: ${projectDirectories.length} qualified project(s).`);
+console.log(
+  `Gallery structure verification passed: ${projectDirectories.length} project projection(s). ` +
+    "Qualification is not inferred from directory presence.",
+);
