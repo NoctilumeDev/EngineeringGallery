@@ -2,6 +2,8 @@
 
 One sentence describing the released project in user-facing terms.
 
+[中文说明 / Chinese edition](https://github.com/NoctilumeDev/NoctilumeDev-ZH/tree/main/projects/project-slug)
+
 ## Current release
 
 - **Version:** `v0.0.0`

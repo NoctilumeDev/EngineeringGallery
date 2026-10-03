@@ -6,7 +6,11 @@ Gallery documentation minimizes adoption friction. It is English-first, concise,
 
 This is not a requirement that laboratory work be conducted in English. Original repositories may keep the language, terminology, stage identifiers, and evidence structure that best preserve engineering truth.
 
-The Gallery does not maintain a second translated release surface. A separate profile or essay edition may serve Chinese readers, but distributable project documentation remains English-only and links back to exact engineering sources.
+The Gallery does not maintain a second translated release surface. Distributable project documentation remains English-only and links back to exact engineering sources.
+
+Every project landing page provides one visible link to its independently maintained Chinese edition, normally under `NoctilumeDev-ZH/projects/<slug>/`. The Chinese edition records the exact Gallery Release on which it is based and links back to the current English exhibit. It is not stored as a mirrored `docs/zh/` tree inside Engineering Gallery.
+
+The two editions may update at different times. A Chinese edition may remain based on an earlier Gallery Release as long as that coordinate is stated honestly. Translation delay is not claim drift; pretending that two unequal revisions are synchronized is.
 
 ## Rewrite, do not transliterate
 
