@@ -16,6 +16,7 @@ const requiredRootFiles = [
   "catalog/exhibits/README.md",
   "docs/EXHIBIT_CONSTRUCTION_GUIDE.md",
   "docs/INFORMATION_ARCHITECTURE.md",
+  "docs/DISCOVERABILITY_METADATA.md",
   "docs/ENGLISH_DOCUMENTATION.md",
   "projects/README.md",
   "templates/PROJECT_README.md",
@@ -124,6 +125,41 @@ for (const filePath of markdownFiles) {
     if (!fs.existsSync(resolvedTarget)) {
       errors.push(`${file}: broken relative link: ${target}`);
     }
+  }
+}
+
+const readme = fs.readFileSync(path.join(root, "README.md"), "utf8");
+if (!readme.includes("[Discoverability Metadata](docs/DISCOVERABILITY_METADATA.md)")) {
+  errors.push("README.md: missing Discoverability Metadata guide route");
+}
+
+const informationArchitecture = fs.readFileSync(
+  path.join(root, "docs/INFORMATION_ARCHITECTURE.md"),
+  "utf8",
+);
+for (const marker of [
+  "G3A — Language and Profile Split",
+  "G3B — Project Route Migration",
+  "G3C — Discoverability Metadata",
+  "it does not qualify a project or authorize a Gallery route",
+]) {
+  if (!informationArchitecture.includes(marker)) {
+    errors.push(`docs/INFORMATION_ARCHITECTURE.md: missing G3 boundary ${marker}`);
+  }
+}
+
+const discoverability = fs.readFileSync(
+  path.join(root, "docs/DISCOVERABILITY_METADATA.md"),
+  "utf8",
+);
+for (const marker of [
+  "approximately 6 to 12 stable English Topics",
+  "The range is guidance, not a quota.",
+  "Project laboratory | Its repository description and GitHub Topics",
+  "no Gallery route or qualification state changed merely because metadata improved",
+]) {
+  if (!discoverability.includes(marker)) {
+    errors.push(`docs/DISCOVERABILITY_METADATA.md: missing metadata boundary ${marker}`);
   }
 }
 

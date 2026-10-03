@@ -90,6 +90,7 @@ See [English Documentation](docs/ENGLISH_DOCUMENTATION.md).
 
 - [Exhibit Construction Guide](docs/EXHIBIT_CONSTRUCTION_GUIDE.md)
 - [Information Architecture](docs/INFORMATION_ARCHITECTURE.md)
+- [Discoverability Metadata](docs/DISCOVERABILITY_METADATA.md)
 - [Projection Policy](PROJECTION_POLICY.md)
 - [Release Policy](RELEASE_POLICY.md)
 - [English Documentation](docs/ENGLISH_DOCUMENTATION.md)

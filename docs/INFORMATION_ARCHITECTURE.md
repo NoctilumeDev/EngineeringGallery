@@ -76,4 +76,16 @@ language edition -> exact source edition revision
 Profile route -> canonical Gallery or laboratory URL
 ```
 
+## G3 public-surface workstreams
+
+G3 keeps language, navigation, and discovery separate:
+
+- **G3A — Language and Profile Split:** establish the canonical English Profile and the independently revisioned Chinese edition.
+- **G3B — Project Route Migration:** switch one project at a time only after its Gallery exhibit becomes `PROFILE_ROUTABLE`.
+- **G3C — Discoverability Metadata:** align repository descriptions, GitHub Topics, and stable search vocabulary through the surface that owns each value.
+
+G3C may run before the first real exhibit, but it does not qualify a project or authorize a Gallery route. Project laboratories own their descriptions and Topics; the Profile owns stable role wording; the Gallery owns its repository metadata and release-facing exhibit wording.
+
+The detailed project-specific procedure and stopping rules are in [Discoverability Metadata](DISCOVERABILITY_METADATA.md).
+
 The architectural principle is simple: **decouple ownership; preserve provenance.**
