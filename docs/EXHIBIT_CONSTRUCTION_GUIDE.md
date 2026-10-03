@@ -212,6 +212,20 @@ exact upstream coordinate
         -> exact file-set and hash verification
 ```
 
+The standard exporter is:
+
+```text
+node scripts/export-project.mjs \
+  --source-repo <local-git-checkout> \
+  --source-url <canonical-repository-url> \
+  --source-commit <exact-40-character-sha> \
+  --project projects/<project-slug>
+```
+
+It reads Git blobs from the exact commit rather than copying the upstream working tree. It refuses collisions with Gallery-owned files and generates the initial lock.
+
+After changing only Gallery-owned documentation or visual assets, use `scripts/build-projection-lock.mjs` against the same source checkout and exact commit. If payload bytes no longer equal upstream, lock generation fails instead of silently reclassifying the change.
+
 `PROJECTION_MANIFEST.txt` declares the upstream files or subtrees eligible for export. It is an input allowlist, not proof of the final output.
 
 Let:
@@ -389,6 +403,18 @@ A catalog entry should bind:
 
 A complete candidate directory may exist before catalog publication, but it must not be counted or described as a qualified exhibit. Empty placeholders and future-project cards remain prohibited.
 
+A project can have both a cataloged older Release and a newer candidate on Gallery `main`. The catalog record continues to point to the immutable released tag. Public navigation must use the catalog's Release or tag route, not assume that the mutable `main/projects/<slug>` directory is already released.
+
+The structural verifier reports these dimensions independently:
+
+```text
+project projections
+active candidates
+cataloged exhibits
+```
+
+If the current projection lock differs from the lock bound by the catalog record, the project remains cataloged at its older Release while also carrying a newer active candidate.
+
 ## 13. Handle exceptions explicitly
 
 When a project does not fit the recommended path:
@@ -474,7 +500,28 @@ An exhibit construction round is complete only when:
 
 Completion of one exhibit does not qualify another. Each project carries its own source facts, risks, dependencies, and release boundary.
 
-## 17. The short rule
+## 17. Reference specimens are not exhibits
+
+When no real project is ready, a synthetic reference specimen may exercise the complete showroom and control design without acquiring product status.
+
+Reference specimens live under `reference/`, never under `projects/`. They may demonstrate the landing-page structure, preview assets, diagrams, Quick Start presentation, origin display, language-edition route, and negative contract cases.
+
+Their state is always `REFERENCE_SPECIMEN`. They never become:
+
+```text
+QUALIFIED_FOR_RELEASE
+RELEASED
+CATALOGED
+PROFILE_ROUTABLE
+```
+
+The verifier excludes `reference/**` from projection, candidate, and catalog counts. A specimen may be polished enough to test the room, but it must remain visibly synthetic and must not receive a project-scoped product Release.
+
+The rule is:
+
+> A specimen exercises the Gallery. An exhibit represents a project.
+
+## 18. The short rule
 
 ```text
 Keep the invariants.

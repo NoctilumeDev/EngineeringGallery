@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "slug": "project-slug",
+    "version": "1.0.0"
+  },
+  "source": {
+    "repository": "https://github.com/owner/repository",
+    "commit": "0000000000000000000000000000000000000000"
+  },
+  "manifest": [
+    {
+      "entry": "src",
+      "matchedSourcePaths": [
+        "src/example.txt"
+      ]
+    }
+  ],
+  "payload": [
+    {
+      "path": "src/example.txt",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "sourcePath": "src/example.txt",
+      "gitMode": "100644",
+      "gitBlob": "0000000000000000000000000000000000000000"
+    }
+  ],
+  "control": [
+    {
+      "path": "README.md",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ]
+}

@@ -38,14 +38,33 @@ A release requires all of the following:
 
 1. the source project has completed its own qualification at an exact commit or immutable tag;
 2. `ORIGIN.md` binds that coordinate;
-3. the projection matches `PROJECTION_MANIFEST.txt`;
+3. the manifest-driven export and `PROJECTION_LOCK.json` prove the projection file set and hashes;
 4. required English documentation is complete and factually bounded;
 5. licensing and notices are resolved;
 6. the Gallery verifier passes;
 7. the documented Quick Start succeeds from a fresh clone;
-8. the release contents are read back from exact Gallery `main` after merge.
+8. the release contents are read back from exact Gallery `main` after merge;
+9. the exact-main qualification run establishes `QUALIFIED_FOR_RELEASE`;
+10. the project-scoped tag and GitHub Release are created and read back;
+11. a usable Chinese edition exposes the exact Gallery Release on which it is based;
+12. a catalog record binds those identities and makes the exhibit public.
 
 A successful file copy or repository CI run is not, by itself, release qualification.
+
+The lifecycle remains explicit:
+
+```text
+PROJECTION_CANDIDATE
+        -> QUALIFIED_FOR_RELEASE
+        -> RELEASED
+        -> CHINESE_EDITION_AVAILABLE
+        -> CATALOGED
+        -> PROFILE_ROUTABLE
+```
+
+The Chinese edition may intentionally lag behind the current English Release. Its catalog binding records the older source tag and commit honestly; it is not forced to pretend that eventual consistency is strong consistency.
+
+The current project directory may also move ahead as the next candidate while the catalog remains bound to the last immutable Release. Public links follow the cataloged tag or Release until the newer candidate completes the lifecycle.
 
 ## Maintenance propagation
 

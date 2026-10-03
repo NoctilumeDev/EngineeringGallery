@@ -39,6 +39,30 @@ The allowlist protects both directions:
 - required runtime material is less likely to disappear accidentally;
 - construction records and unrelated internal material are less likely to leak into a release.
 
+The manifest is expanded against one exact Git commit. The exporter reads tracked blobs from that commit rather than copying the source working tree. It preserves upstream-relative paths and refuses to overwrite Gallery-owned control files.
+
+## Projection lock
+
+Every projection must contain a generated `PROJECTION_LOCK.json`.
+
+The lock separates:
+
+- upstream-derived distribution payload;
+- Gallery-owned control and presentation material.
+
+For each file it records a SHA-256 digest. Payload entries also record their upstream path, Git mode, and Git blob identity. The lock records the manifest expansion used for the export.
+
+`PROJECTION_LOCK.json` does not hash itself. The verifier checks its schema and then requires every other project file to appear exactly once in either the payload or control inventory.
+
+The resulting rule is:
+
+```text
+exported upstream payload is a subset of the exact manifest expansion
+actual projection files equal locked payload plus locked control plus the lock itself
+```
+
+The manifest is not required to cover the entire upstream repository. An excluded upstream file is not an error; an exported file without manifest justification is.
+
 ## Included material
 
 A projection normally includes only what is needed to understand, build, run, and maintain the released result:

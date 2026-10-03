@@ -23,19 +23,33 @@ An exhibit addition must:
 
 1. bind an exact upstream commit or immutable tag;
 2. define an explicit `PROJECTION_MANIFEST.txt` allowlist;
-3. export ordinary files without nested Git metadata or submodules;
-4. write English public documentation from verified behavior;
-5. preserve upstream license and notice obligations;
-6. pass `node scripts/verify-gallery.mjs`;
-7. pass the documented Quick Start from a fresh Gallery clone;
-8. record the run evidence in the release pull request;
-9. create a project-scoped release only after merge and exact-main readback.
+3. use the manifest-driven exporter against an exact upstream commit;
+4. generate `PROJECTION_LOCK.json` and verify the exact file set and hashes;
+5. write English public documentation from verified behavior;
+6. preserve upstream license and notice obligations;
+7. pass `npm test` and `npm run verify`;
+8. pass the documented Quick Start from a fresh Gallery clone;
+9. record the run evidence in the release pull request;
+10. create a project-scoped release only after merge and exact-main readback;
+11. bind a usable Chinese edition and add a catalog record only after Release readback.
 
 Use the files under [`templates/`](templates/PROJECT_README.md) as the starting contract. A placeholder directory is not an exhibit and should not be committed.
 
+The initial payload export is performed with:
+
+```text
+node scripts/export-project.mjs \
+  --source-repo <local-git-checkout> \
+  --source-url <canonical-repository-url> \
+  --source-commit <exact-40-character-sha> \
+  --project projects/<project-slug>
+```
+
+After editing only Gallery-owned documentation or visual assets, regenerate the lock with `scripts/build-projection-lock.mjs` against the same exact source coordinate.
+
 ## Updating an exhibit
 
-Every update must change `ORIGIN.md` to the new upstream coordinate when source content changes, update `VERSION`, and add a `CHANGELOG.md` entry. Re-run the fresh-clone Quick Start whenever runtime content or run instructions change.
+Every update must change `ORIGIN.md` to the new upstream coordinate when source content changes, update `VERSION`, regenerate the projection lock, and add a `CHANGELOG.md` entry. Re-run the fresh-clone Quick Start whenever runtime content or run instructions change.
 
 ## Root documentation changes
 

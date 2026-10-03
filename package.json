@@ -1,0 +1,14 @@
+{
+  "name": "engineering-gallery-contracts",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "verify": "node scripts/verify-gallery.mjs",
+    "verify:online": "node scripts/verify-catalog-online.mjs",
+    "check": "npm run test && npm run verify"
+  }
+}
