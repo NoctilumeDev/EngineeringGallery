@@ -80,4 +80,4 @@ Source identifiers, protocol terms, domain fixtures, or user-interface strings a
 
 ## No placeholder exhibits
 
-An empty project directory, future-project card, or copied but unverified source tree is not allowed under `projects/`. The catalog lists only qualified exhibits.
+An empty project directory, future-project card, or partial source dump is not allowed under `projects/`. A complete candidate projection may be present while its qualification and release path is still in progress, but directory presence does not make it a qualified exhibit. The catalog lists only exhibits whose Release and qualification bindings have become effective.

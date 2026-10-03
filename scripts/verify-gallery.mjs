@@ -12,6 +12,7 @@ const requiredRootFiles = [
   "CONTRIBUTING.md",
   "PROJECTION_POLICY.md",
   "RELEASE_POLICY.md",
+  "docs/EXHIBIT_CONSTRUCTION_GUIDE.md",
   "docs/INFORMATION_ARCHITECTURE.md",
   "docs/ENGLISH_DOCUMENTATION.md",
   "projects/README.md",
@@ -189,4 +190,7 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log(`Gallery verification passed: ${projectDirectories.length} qualified project(s).`);
+console.log(
+  `Gallery structure verification passed: ${projectDirectories.length} project projection(s). ` +
+    "Qualification is not inferred from directory presence.",
+);
