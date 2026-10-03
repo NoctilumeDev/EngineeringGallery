@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="980" viewBox="0 0 1440 980" role="img" aria-labelledby="title desc">
+  <title id="title">Hello Gallery showroom feature map</title>
+  <desc id="desc">Ten showroom sections grouped into See, Run, Understand, and Trust visitor needs.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07101d"/>
+      <stop offset="1" stop-color="#0b1627"/>
+    </linearGradient>
+    <linearGradient id="titleGradient" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#eef5ff"/>
+      <stop offset="0.55" stop-color="#88a9ff"/>
+      <stop offset="1" stop-color="#67e8e1"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.025"/>
+    </pattern>
+  </defs>
+  <rect width="1440" height="980" rx="28" fill="url(#bg)"/>
+  <rect width="1440" height="980" rx="28" fill="url(#grid)"/>
+  <g font-family="Inter,Segoe UI,Arial,sans-serif">
+    <text x="90" y="86" fill="#67e8e1" font-family="Consolas,monospace" font-size="14" font-weight="700" letter-spacing="2.8">HELLO GALLERY · REFERENCE_SPECIMEN</text>
+    <text x="90" y="150" fill="url(#titleGradient)" font-size="48" font-weight="700" letter-spacing="-2">Showroom feature map</text>
+    <text x="90" y="190" fill="#96a6bc" font-size="17">Ten sections, grouped by the visitor question they answer.</text>
+
+    <g transform="translate(90 248)">
+      <g>
+        <rect width="285" height="620" rx="20" fill="#0d1a2b" stroke="#67e8e1" stroke-opacity="0.22"/>
+        <circle cx="34" cy="38" r="6" fill="#67e8e1"/>
+        <text x="54" y="44" fill="#67e8e1" font-family="Consolas,monospace" font-size="12" font-weight="700" letter-spacing="2">SEE</text>
+        <text x="26" y="89" fill="#f2f6fd" font-size="24" font-weight="700">What is this?</text>
+        <text x="26" y="121" fill="#8fa0b7" font-size="13">Immediate recognition</text>
+        <g transform="translate(20 164)">
+          <rect width="245" height="118" rx="14" fill="#101f33" stroke="#95afd5" stroke-opacity="0.15"/>
+          <text x="18" y="28" fill="#667b95" font-family="Consolas,monospace" font-size="10">01</text>
+          <text x="18" y="62" fill="#f2f6fd" font-size="18" font-weight="700">Overview</text>
+          <text x="18" y="88" fill="#8fa0b7" font-size="12">Role, identity, language route</text>
+        </g>
+        <g transform="translate(20 298)">
+          <rect width="245" height="118" rx="14" fill="#101f33" stroke="#95afd5" stroke-opacity="0.15"/>
+          <text x="18" y="28" fill="#667b95" font-family="Consolas,monospace" font-size="10">02</text>
+          <text x="18" y="62" fill="#f2f6fd" font-size="18" font-weight="700">Demo / Preview</text>
+          <text x="18" y="88" fill="#8fa0b7" font-size="12">Representative visual result</text>
+        </g>
+      </g>
+
+      <g transform="translate(305)">
+        <rect width="285" height="620" rx="20" fill="#0d1a2b" stroke="#88a9ff" stroke-opacity="0.22"/>
+        <circle cx="34" cy="38" r="6" fill="#88a9ff"/>
+        <text x="54" y="44" fill="#88a9ff" font-family="Consolas,monospace" font-size="12" font-weight="700" letter-spacing="2">RUN</text>
+        <text x="26" y="89" fill="#f2f6fd" font-size="24" font-weight="700">Can I use it?</text>
+        <text x="26" y="121" fill="#8fa0b7" font-size="13">Bounded adoption</text>
+        <g transform="translate(20 164)">
+          <rect width="245" height="118" rx="14" fill="#101f33" stroke="#95afd5" stroke-opacity="0.15"/>
+          <text x="18" y="28" fill="#667b95" font-family="Consolas,monospace" font-size="10">03</text>
+          <text x="18" y="62" fill="#f2f6fd" font-size="18" font-weight="700">Release Scope</text>
+          <text x="18" y="88" fill="#8fa0b7" font-size="12">Support, exclusions, limits</text>
+        </g>
+        <g transform="translate(20 298)">
+          <rect width="245" height="118" rx="14" fill="#101f33" stroke="#95afd5" stroke-opacity="0.15"/>
+          <text x="18" y="28" fill="#667b95" font-family="Consolas,monospace" font-size="10">04</text>
+          <text x="18" y="62" fill="#f2f6fd" font-size="18" font-weight="700">Quick Start</text>
+          <text x="18" y="88" fill="#8fa0b7" font-size="12">Requirements and expected result</text>
+        </g>
+        <g transform="translate(20 432)">
+          <rect width="245" height="118" rx="14" fill="#101f33" stroke="#95afd5" stroke-opacity="0.15"/>
+          <text x="18" y="28" fill="#667b95" font-family="Consolas,monospace" font-size="10">07</text>
+          <text x="18" y="62" fill="#f2f6fd" font-size="18" font-weight="700">Release Artifacts</text>
+          <text x="18" y="88" fill="#8fa0b7" font-size="12">Versions, downloads, checksums</text>
+        </g>
+      </g>
+
+      <g transform="translate(610)">
+        <rect width="285" height="620" rx="20" fill="#0d1a2b" stroke="#ba9cff" stroke-opacity="0.22"/>
+        <circle cx="34" cy="38" r="6" fill="#ba9cff"/>
+        <text x="54" y="44" fill="#ba9cff" font-family="Consolas,monospace" font-size="12" font-weight="700" letter-spacing="2">UNDERSTAND</text>
+        <text x="26" y="89" fill="#f2f6fd" font-size="24" font-weight="700">How is it shaped?</text>
+        <text x="26" y="121" fill="#8fa0b7" font-size="13">Mental model</text>
+        <g transform="translate(20 164)">
+          <rect width="245" height="118" rx="14" fill="#101f33" stroke="#95afd5" stroke-opacity="0.15"/>
+          <text x="18" y="28" fill="#667b95" font-family="Consolas,monospace" font-size="10">05</text>
+          <text x="18" y="62" fill="#f2f6fd" font-size="18" font-weight="700">Feature &amp; Architecture</text>
+          <text x="18" y="88" fill="#8fa0b7" font-size="12">Modules, flows, ownership</text>
+        </g>
+        <g transform="translate(20 298)">
+          <rect width="245" height="118" rx="14" fill="#101f33" stroke="#95afd5" stroke-opacity="0.15"/>
+          <text x="18" y="28" fill="#667b95" font-family="Consolas,monospace" font-size="10">06</text>
+          <text x="18" y="62" fill="#f2f6fd" font-size="18" font-weight="700">Project Evolution</text>
+          <text x="18" y="88" fill="#8fa0b7" font-size="12">Why it exists, major changes</text>
+        </g>
+      </g>
+
+      <g transform="translate(915)">
+        <rect width="285" height="620" rx="20" fill="#0d1a2b" stroke="#f5b96a" stroke-opacity="0.22"/>
+        <circle cx="34" cy="38" r="6" fill="#f5b96a"/>
+        <text x="54" y="44" fill="#f5b96a" font-family="Consolas,monospace" font-size="12" font-weight="700" letter-spacing="2">TRUST</text>
+        <text x="26" y="89" fill="#f2f6fd" font-size="24" font-weight="700">Why may I rely on it?</text>
+        <text x="26" y="121" fill="#8fa0b7" font-size="13">Traceable boundaries</text>
+        <g transform="translate(20 164)">
+          <rect width="245" height="118" rx="14" fill="#101f33" stroke="#95afd5" stroke-opacity="0.15"/>
+          <text x="18" y="28" fill="#667b95" font-family="Consolas,monospace" font-size="10">08</text>
+          <text x="18" y="62" fill="#f2f6fd" font-size="18" font-weight="700">Origin / Provenance</text>
+          <text x="18" y="88" fill="#8fa0b7" font-size="12">Exact source identity</text>
+        </g>
+        <g transform="translate(20 298)">
+          <rect width="245" height="118" rx="14" fill="#101f33" stroke="#95afd5" stroke-opacity="0.15"/>
+          <text x="18" y="28" fill="#667b95" font-family="Consolas,monospace" font-size="10">09</text>
+          <text x="18" y="62" fill="#f2f6fd" font-size="18" font-weight="700">License / Notices</text>
+          <text x="18" y="88" fill="#8fa0b7" font-size="12">Permission and obligations</text>
+        </g>
+        <g transform="translate(20 432)">
+          <rect width="245" height="118" rx="14" fill="#101f33" stroke="#95afd5" stroke-opacity="0.15"/>
+          <text x="18" y="28" fill="#667b95" font-family="Consolas,monospace" font-size="10">10</text>
+          <text x="18" y="62" fill="#f2f6fd" font-size="18" font-weight="700">Engineering History</text>
+          <text x="18" y="88" fill="#8fa0b7" font-size="12">Laboratory and evidence route</text>
+        </g>
+      </g>
+    </g>
+    <text x="90" y="924" fill="#66748b" font-family="Consolas,monospace" font-size="12">A READING ORDER, NOT A DEMAND FOR TEN LONG SECTIONS</text>
+  </g>
+</svg>

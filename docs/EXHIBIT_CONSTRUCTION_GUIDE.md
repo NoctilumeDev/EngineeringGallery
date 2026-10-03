@@ -506,6 +506,8 @@ When no real project is ready, a synthetic reference specimen may exercise the c
 
 Reference specimens live under `reference/`, never under `projects/`. They may demonstrate the landing-page structure, preview assets, diagrams, Quick Start presentation, origin display, language-edition route, and negative contract cases.
 
+The maintained [Hello Gallery specimen](../reference/hello-gallery/README.md) is the current implementation of this rule. Its local Chinese page is a rendering fixture only; real Chinese editions remain independently revisioned under `NoctilumeDev-ZH`.
+
 Their state is always `REFERENCE_SPECIMEN`. They never become:
 
 ```text

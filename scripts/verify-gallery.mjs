@@ -26,6 +26,7 @@ const requiredRootFiles = [
   "templates/CATALOG_ENTRY.json",
   "scripts/export-project.mjs",
   "scripts/build-projection-lock.mjs",
+  "scripts/verify-reference.mjs",
   "scripts/verify-catalog-online.mjs",
   "scripts/lib/gallery-contract.mjs",
   "tests/gallery-contract.test.mjs",
@@ -87,15 +88,18 @@ const allowedCjkLiterals = ["中文说明"];
 for (const filePath of markdownFiles) {
   const content = fs.readFileSync(filePath, "utf8");
   const file = relative(filePath);
-  const cjkCheckedContent = allowedCjkLiterals.reduce(
-    (current, literal) => current.replaceAll(literal, ""),
-    content,
-  );
-
-  if (cjkPattern.test(cjkCheckedContent)) {
-    errors.push(
-      `${file}: Gallery Markdown contains CJK text outside the approved Chinese-edition link label`,
+  const isReferenceChineseFixture = file.startsWith("reference/hello-gallery/zh/");
+  if (!isReferenceChineseFixture) {
+    const cjkCheckedContent = allowedCjkLiterals.reduce(
+      (current, literal) => current.replaceAll(literal, ""),
+      content,
     );
+
+    if (cjkPattern.test(cjkCheckedContent)) {
+      errors.push(
+        `${file}: Gallery Markdown contains CJK text outside the approved Chinese-edition link label`,
+      );
+    }
   }
 
   const linkPattern = /!?\[[^\]]*\]\(([^)]+)\)/g;
