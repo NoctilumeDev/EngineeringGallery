@@ -288,7 +288,27 @@ NoctilumeDev-ZH/projects/<slug>/
 
 Do not place a full Chinese mirror under `EngineeringGallery/projects/<slug>/docs/zh/`. That would make the Gallery own two language projections and reintroduce the synchronization problem that the repository boundary is intended to remove.
 
-The Chinese page is an independently versioned edition: a materialized language view with an explicit source revision, not another writer of release facts. It records:
+The Chinese page is an independently versioned edition: a materialized language view with an explicit source revision, not another writer of release facts. The consistency model is **provenance-bound eventual consistency**:
+
+```text
+English Gallery Release = canonical source
+Chinese edition         = asynchronous derived view
+```
+
+Strong consistency is unnecessary. The Chinese edition may remain behind the current English Release while translation work is pending. Staleness is valid when it is observable; pretending that stale content describes a newer source Release is not.
+
+Every Chinese exhibit begins with a status block equivalent to:
+
+```text
+Chinese edition status
+Source Gallery Release: <project-slug>-v1.2.0
+Source Gallery commit: <exact SHA>
+Edition revision: zh-v1.2.0-r1
+Last synchronized: YYYY-MM-DD
+Current English exhibit: <stable URL>
+```
+
+It also records:
 
 - the Gallery project and stable English route;
 - the exact Gallery Release on which the edition is based;
@@ -296,7 +316,11 @@ The Chinese page is an independently versioned edition: a materialized language 
 - its own edition revision or update date;
 - a visible route back to the current English exhibit.
 
-The first public catalog entry requires a usable Chinese edition at the declared stable route. Later English patch releases do not require same-day translation, but the Chinese page must continue to state its actual base Release. A Chinese wording change does not mutate English release facts. A delayed edition is acceptable; a falsely synchronized edition is not.
+The first public catalog entry requires a usable Chinese edition at the declared stable route. Later English Releases do not require same-day translation, but the Chinese page must continue to state its actual base Release.
+
+When an English Release changes facts that affect the Chinese explanation, record translation debt in the Chinese-edition repository. Updating that edition later binds it to the newer source coordinate and restores convergence. A Chinese wording correction changes only the Chinese edition and does not mutate English release facts.
+
+In short: a delayed edition is acceptable; a falsely synchronized edition is not.
 
 If a project requires a different Chinese-edition location, record the reason in the project-specific construction record. The separation of language ownership and the exact source-release binding remain fixed.
 
