@@ -64,7 +64,9 @@ Language boundaries are repository boundaries, not duplicated sections inside on
 - Project laboratories may use whichever language best preserves engineering truth.
 - Technical identifiers and protocol literals such as `CI`, `CLI`, `PR`, `SHA`, `main`, `PASS`, `FAIL`, and `NOT_PROVEN` are not translated.
 
-A language edition records the exact source revision on which it is based. It may remain at that revision until an intentional translation update is made. This avoids turning two language repositories into strongly consistent replicas.
+A language edition records the exact source revision on which it is based. It may remain at that revision until an intentional translation update is made. The model is provenance-bound eventual consistency, not strong consistency.
+
+An older but accurately labeled edition is a valid stale read view. An edition that claims the current source revision while still describing older facts is invalid. The important property is not simultaneous updates; it is the ability to observe exactly which source Release each edition represents.
 
 The remaining links are deliberate provenance coupling:
 
