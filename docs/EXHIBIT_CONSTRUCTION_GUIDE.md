@@ -56,6 +56,7 @@ Each project decides, from its own facts and risks:
 - which limitations must be visible near the top of the exhibit;
 - which release artifact formats are appropriate;
 - how much engineering history should be linked without copying the laboratory into the Gallery.
+- which stable public terms should align with the owning repository's description and Topics without turning discoverability metadata into release authority.
 
 Risk determines gate strength. Do not copy a heavy qualification chain from one project merely because it exists. Do not weaken a gate when a project's actual integration or safety boundary requires it.
 
@@ -129,6 +130,7 @@ Project-specific qualification gates:
 License and notice position:
 Known limitations:
 Adaptations from this guide:
+Stable public role and search vocabulary:
 Current blocking facts:
 Next authorized action:
 ```
@@ -136,6 +138,8 @@ Next authorized action:
 The `Adaptations from this guide` field is important. A deviation is not automatically a defect. It must be visible, justified by project facts, and checked against the fixed boundaries.
 
 Do not permanently copy this construction record into the released project unless it helps a user understand or operate the release. The pull request preserves the construction discussion; the exhibit preserves the release result.
+
+Repository descriptions and Topics follow the separate [G3C discoverability agreement](DISCOVERABILITY_METADATA.md). They may be improved before an exhibit exists, but they do not establish `QUALIFIED_FOR_RELEASE`, `CATALOGED`, or `PROFILE_ROUTABLE`.
 
 ## 6. Design the exhibit as two reading layers
 
