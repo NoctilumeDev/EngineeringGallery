@@ -43,6 +43,12 @@ The Profile and Essays remain unchanged unless a stable project role or an argum
 
 Read the full boundary model in [Information Architecture](docs/INFORMATION_ARCHITECTURE.md).
 
+## Reference showroom
+
+The [Hello Gallery reference specimen](reference/hello-gallery/README.md) exercises the public reading order, visual system, responsive demo, provenance display, and language-edition route before a real project is ready.
+
+It is a synthetic room test, not a project projection or an exhibit. Its permanent state is `REFERENCE_SPECIMEN`; it cannot receive a product Release, enter the catalog, or authorize a Profile route. The catalog therefore remains empty.
+
 ## Qualification rule
 
 Copying files into this repository does not make a project distributable.
@@ -87,6 +93,7 @@ See [English Documentation](docs/ENGLISH_DOCUMENTATION.md).
 - [Projection Policy](PROJECTION_POLICY.md)
 - [Release Policy](RELEASE_POLICY.md)
 - [English Documentation](docs/ENGLISH_DOCUMENTATION.md)
+- [Reference specimens](reference/README.md)
 - [Contributing](CONTRIBUTING.md)
 
 ## Licensing

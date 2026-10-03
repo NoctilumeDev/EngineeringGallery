@@ -10,6 +10,8 @@ The Gallery does not maintain a second translated release surface. Distributable
 
 Every project landing page provides one visible link to its independently maintained Chinese edition, normally under `NoctilumeDev-ZH/projects/<slug>/`. The Chinese edition records the exact Gallery Release on which it is based and links back to the current English exhibit. It is not stored as a mirrored `docs/zh/` tree inside Engineering Gallery.
 
+The only local Chinese page is the explicitly synthetic `reference/hello-gallery/zh/` rendering fixture. It does not establish a second release surface and cannot be copied as a production language arrangement.
+
 The two editions use provenance-bound eventual consistency. A Chinese edition may remain based on an earlier Gallery Release as long as it displays its source Release, exact source commit, edition revision, last synchronization date, and route back to the current English exhibit.
 
 Translation delay is not claim drift. A stale edition that identifies its source is a valid derived view; an edition that claims a newer source while still describing older facts is not.
