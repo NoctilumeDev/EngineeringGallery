@@ -2,16 +2,18 @@ import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import { verifyGalleryStructure } from "./lib/gallery-contract.mjs";
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(scriptDirectory, "..");
-const projectsRoot = path.join(root, "projects");
-
 const requiredRootFiles = [
+  "package.json",
   "README.md",
   "CONTRIBUTING.md",
   "PROJECTION_POLICY.md",
   "RELEASE_POLICY.md",
+  "catalog/README.md",
+  "catalog/exhibits/README.md",
   "docs/EXHIBIT_CONSTRUCTION_GUIDE.md",
   "docs/INFORMATION_ARCHITECTURE.md",
   "docs/ENGLISH_DOCUMENTATION.md",
@@ -20,14 +22,13 @@ const requiredRootFiles = [
   "templates/ORIGIN.md",
   "templates/CHANGELOG.md",
   "templates/PROJECTION_MANIFEST.txt",
-];
-
-const requiredProjectFiles = [
-  "README.md",
-  "ORIGIN.md",
-  "VERSION",
-  "CHANGELOG.md",
-  "PROJECTION_MANIFEST.txt",
+  "templates/PROJECTION_LOCK.json",
+  "templates/CATALOG_ENTRY.json",
+  "scripts/export-project.mjs",
+  "scripts/build-projection-lock.mjs",
+  "scripts/verify-catalog-online.mjs",
+  "scripts/lib/gallery-contract.mjs",
+  "tests/gallery-contract.test.mjs",
 ];
 
 const errors = [];
@@ -41,15 +42,8 @@ function walk(directory) {
 
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
     const entryPath = path.join(directory, entry.name);
-    if (entry.name === ".git") return [];
+    if ([".git", "node_modules"].includes(entry.name)) return [];
     return entry.isDirectory() ? walk(entryPath) : [entryPath];
-  });
-}
-
-function containsGitMetadata(directory) {
-  return fs.readdirSync(directory, { withFileTypes: true }).some((entry) => {
-    if (entry.name === ".git") return true;
-    return entry.isDirectory() && containsGitMetadata(path.join(directory, entry.name));
   });
 }
 
@@ -60,7 +54,7 @@ for (const requiredFile of requiredRootFiles) {
 }
 
 const textFiles = walk(root).filter((filePath) =>
-  [".md", ".mjs", ".yml", ".yaml", ".txt"].includes(path.extname(filePath)),
+  [".json", ".md", ".mjs", ".yml", ".yaml", ".txt"].includes(path.extname(filePath)),
 );
 
 for (const filePath of textFiles) {
@@ -76,6 +70,14 @@ for (const filePath of textFiles) {
       errors.push(`${file}:${index + 1}: trailing whitespace`);
     }
   });
+}
+
+for (const filePath of textFiles.filter((candidate) => path.extname(candidate) === ".json")) {
+  try {
+    JSON.parse(fs.readFileSync(filePath, "utf8"));
+  } catch (error) {
+    errors.push(`${relative(filePath)}: invalid JSON: ${error.message}`);
+  }
 }
 
 const markdownFiles = textFiles.filter((filePath) => path.extname(filePath) === ".md");
@@ -121,74 +123,11 @@ for (const filePath of markdownFiles) {
   }
 }
 
-const projectDirectories = fs.existsSync(projectsRoot)
-  ? fs
-      .readdirSync(projectsRoot, { withFileTypes: true })
-      .filter((entry) => entry.isDirectory())
-      .map((entry) => path.join(projectsRoot, entry.name))
-  : [];
-
-for (const projectDirectory of projectDirectories) {
-  const projectName = path.basename(projectDirectory);
-
-  for (const requiredFile of requiredProjectFiles) {
-    if (!fs.existsSync(path.join(projectDirectory, requiredFile))) {
-      errors.push(`projects/${projectName}: missing ${requiredFile}`);
-    }
-  }
-
-  const versionPath = path.join(projectDirectory, "VERSION");
-  if (fs.existsSync(versionPath)) {
-    const version = fs.readFileSync(versionPath, "utf8").trim();
-    if (!/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/u.test(version)) {
-      errors.push(`projects/${projectName}/VERSION: expected Semantic Versioning without a v prefix`);
-    }
-  }
-
-  const originPath = path.join(projectDirectory, "ORIGIN.md");
-  if (fs.existsSync(originPath)) {
-    const origin = fs.readFileSync(originPath, "utf8");
-    for (const label of [
-      "Original repository",
-      "Source commit",
-      "Export date",
-      "Gallery release",
-      "Projection policy",
-    ]) {
-      if (!origin.includes(`**${label}:**`)) {
-        errors.push(`projects/${projectName}/ORIGIN.md: missing ${label} field`);
-      }
-    }
-  }
-
-  if (containsGitMetadata(projectDirectory)) {
-    errors.push(`projects/${projectName}: nested Git metadata is not allowed`);
-  }
-
-  const manifestPath = path.join(projectDirectory, "PROJECTION_MANIFEST.txt");
-  if (fs.existsSync(manifestPath)) {
-    const entries = fs
-      .readFileSync(manifestPath, "utf8")
-      .split("\n")
-      .map((line) => line.trim())
-      .filter((line) => line !== "" && !line.startsWith("#"));
-
-    if (entries.length === 0) {
-      errors.push(`projects/${projectName}/PROJECTION_MANIFEST.txt: allowlist is empty`);
-    }
-
-    for (const entry of entries) {
-      if (
-        path.isAbsolute(entry) ||
-        entry.split(/[\\/]/u).includes("..") ||
-        /[*?[\]]/u.test(entry)
-      ) {
-        errors.push(
-          `projects/${projectName}/PROJECTION_MANIFEST.txt: expected an explicit relative path, got ${entry}`,
-        );
-      }
-    }
-  }
+let galleryState;
+try {
+  galleryState = verifyGalleryStructure(root);
+} catch (error) {
+  errors.push(error.message);
 }
 
 if (errors.length > 0) {
@@ -198,6 +137,7 @@ if (errors.length > 0) {
 }
 
 console.log(
-  `Gallery structure verification passed: ${projectDirectories.length} project projection(s). ` +
-    "Qualification is not inferred from directory presence.",
+  `Gallery structure verification passed: ${galleryState.projectionCount} projection(s), ` +
+    `${galleryState.candidateCount} active candidate(s), ` +
+    `${galleryState.catalogedCount} cataloged exhibit(s).`,
 );

@@ -2,7 +2,7 @@
 
 Clean, English-first release projections of NoctilumeDev engineering projects.
 
-> **Current status:** the gallery contract and verification scaffold are established. No project has qualified as an exhibit yet.
+> **Current status:** the G1 Gallery infrastructure is established. No real project projection or cataloged exhibit exists yet.
 
 Engineering Gallery is the public distribution surface for projects that have reached a bounded, reproducible release state. It is designed for people who want to understand, download, and run a project without first reading its entire construction history.
 
@@ -52,11 +52,16 @@ A project becomes a Gallery exhibit only after this sequence is complete:
 ```text
 exact upstream commit or tag
         -> explicit projection allowlist
-        -> clean export
+        -> manifest-driven clean export
+        -> generated projection lock
+        -> exact file-set and SHA-256 verification
         -> English public documentation
         -> fresh clone
         -> actual Quick Start run
-        -> project-scoped release
+        -> QUALIFIED_FOR_RELEASE
+        -> project-scoped tag and Release
+        -> Chinese edition route
+        -> catalog record
 ```
 
 Until the candidate path begins, the project remains absent from `projects/`. A complete candidate projection may be present during qualification, but it is not listed as available until its Release has been read back and its catalog record is effective.
@@ -65,9 +70,9 @@ See [Projection Policy](PROJECTION_POLICY.md) and [Release Policy](RELEASE_POLIC
 
 ## Project catalog
 
-There are currently **0 qualified exhibits**.
+The qualification authority is the set of records under [`catalog/exhibits/`](catalog/exhibits/README.md), not the number of directories under `projects/`.
 
-Projects will be added one at a time after their source coordinate, export allowlist, documentation, licensing, and fresh-clone run have been verified.
+Projects will be added one at a time after their source coordinate, projection integrity, documentation, licensing, fresh-clone run, Release, language-edition route, and catalog binding have been verified.
 
 ## Documentation language
 
