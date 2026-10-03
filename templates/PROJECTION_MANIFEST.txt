@@ -1,0 +1,5 @@
+# One upstream path per line. Paths are explicit allowlist entries.
+# Replace every example before qualification.
+README.md
+src/
+scripts/run-example
