@@ -76,12 +76,21 @@ language edition -> exact source edition revision
 Profile route -> canonical Gallery or laboratory URL
 ```
 
+Language routing is authorized independently:
+
+```text
+CATALOGED                         -> EN_PROFILE_ROUTABLE
+CATALOGED + verified ZH edition   -> ZH_PROFILE_ROUTABLE
+```
+
+An English exhibit does not wait for translation. A Chinese route does not appear until its independently versioned edition exists, declares its actual source Release, and passes readback. This permits eventual consistency without publishing a placeholder or dead language link.
+
 ## G3 public-surface workstreams
 
 G3 keeps language, navigation, and discovery separate:
 
 - **G3A — Language and Profile Split:** establish the canonical English Profile and the independently revisioned Chinese edition.
-- **G3B — Project Route Migration:** switch one project at a time only after its Gallery exhibit becomes `PROFILE_ROUTABLE`.
+- **G3B — Project Route Migration:** switch the English and Chinese project routes independently after the exhibit becomes `EN_PROFILE_ROUTABLE` or `ZH_PROFILE_ROUTABLE` for that surface.
 - **G3C — Discoverability Metadata:** align repository descriptions, GitHub Topics, and stable search vocabulary through the surface that owns each value.
 
 G3C may run before the first real exhibit, but it does not qualify a project or authorize a Gallery route. Project laboratories own their descriptions and Topics; the Profile owns stable role wording; the Gallery owns its repository metadata and release-facing exhibit wording.

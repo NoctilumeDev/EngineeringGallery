@@ -8,7 +8,11 @@ This is not a requirement that laboratory work be conducted in English. Original
 
 The Gallery does not maintain a second translated release surface. Distributable project documentation remains English-only and links back to exact engineering sources.
 
-Every project landing page provides one visible link to its independently maintained Chinese edition, normally under `NoctilumeDev-ZH/projects/<slug>/`. The Chinese edition records the exact Gallery Release on which it is based and links back to the current English exhibit. It is not stored as a mirrored `docs/zh/` tree inside Engineering Gallery.
+When an independently maintained Chinese edition exists, the project landing page provides one visible route to it, normally under `NoctilumeDev-ZH/projects/<slug>/`. The Chinese edition records the exact Gallery Release on which it is based and links back to the current English exhibit. It is not stored as a mirrored `docs/zh/` tree inside Engineering Gallery.
+
+An English exhibit may be released, cataloged, and routed before translation exists. While no Chinese edition is available, the landing page shows no Chinese placeholder or dead link. The root Gallery adds a global Chinese-exhibit index only after that target actually exists.
+
+When the first Chinese edition appears later, its stable link enters the English exhibit through the normal documentation patch-release path. Catalog verification reads that link from the immutable released tag, so a newer candidate cannot silently upgrade an older public Release.
 
 The only local Chinese page is the explicitly synthetic `reference/hello-gallery/zh/` rendering fixture. It does not establish a second release surface and cannot be copied as a production language arrangement.
 

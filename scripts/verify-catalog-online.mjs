@@ -64,21 +64,23 @@ try {
       throw new Error(`${fileName}: published Release does not match the catalog record`);
     }
 
-    const chineseReadme = await githubApi(
-      `/repos/NoctilumeDev/NoctilumeDev-ZH/contents/projects/${encodeURIComponent(record.slug)}/README.md?ref=main`,
-    );
-    const chineseText = decodeContent(chineseReadme, `${fileName} Chinese edition`).replace(
-      /[*`]/gu,
-      "",
-    );
-    for (const expected of [
-      `Source Gallery Release: ${record.chineseEdition.basedOnRelease}`,
-      `Source Gallery commit: ${record.chineseEdition.sourceGalleryCommit}`,
-      `Edition revision: ${record.chineseEdition.editionRevision}`,
-      `Last synchronized: ${record.chineseEdition.lastSynchronized}`,
-    ]) {
-      if (!chineseText.includes(expected)) {
-        throw new Error(`${fileName}: Chinese edition does not declare ${expected}`);
+    if (record.chineseEdition !== null) {
+      const chineseReadme = await githubApi(
+        `/repos/NoctilumeDev/NoctilumeDev-ZH/contents/projects/${encodeURIComponent(record.slug)}/README.md?ref=main`,
+      );
+      const chineseText = decodeContent(chineseReadme, `${fileName} Chinese edition`).replace(
+        /[*`]/gu,
+        "",
+      );
+      for (const expected of [
+        `Source Gallery Release: ${record.chineseEdition.basedOnRelease}`,
+        `Source Gallery commit: ${record.chineseEdition.sourceGalleryCommit}`,
+        `Edition revision: ${record.chineseEdition.editionRevision}`,
+        `Last synchronized: ${record.chineseEdition.lastSynchronized}`,
+      ]) {
+        if (!chineseText.includes(expected)) {
+          throw new Error(`${fileName}: Chinese edition does not declare ${expected}`);
+        }
       }
     }
   }

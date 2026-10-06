@@ -66,8 +66,14 @@ exact upstream commit or tag
         -> actual Quick Start run
         -> QUALIFIED_FOR_RELEASE
         -> project-scoped tag and Release
-        -> Chinese edition route
         -> catalog record
+        -> CATALOGED
+        -> EN_PROFILE_ROUTABLE
+
+CATALOGED + verified Chinese edition route
+        -> release the visible Gallery link
+        -> catalog localization binding
+        -> ZH_PROFILE_ROUTABLE
 ```
 
 Until the candidate path begins, the project remains absent from `projects/`. A complete candidate projection may be present during qualification, but it is not listed as available until its Release has been read back and its catalog record is effective.
@@ -78,11 +84,13 @@ See [Projection Policy](PROJECTION_POLICY.md) and [Release Policy](RELEASE_POLIC
 
 The qualification authority is the set of records under [`catalog/exhibits/`](catalog/exhibits/README.md), not the number of directories under `projects/`.
 
-Projects will be added one at a time after their source coordinate, projection integrity, documentation, licensing, fresh-clone run, Release, language-edition route, and catalog binding have been verified.
+Projects will be added one at a time after their source coordinate, projection integrity, documentation, licensing, fresh-clone run, Release, and catalog binding have been verified. A Chinese edition is an independently qualified language route, not a prerequisite for the English exhibit.
 
 ## Documentation language
 
 Gallery-facing documentation is written in English. This is a release rewrite, not a literal translation: internal milestone language is converted into supported behavior, requirements, and limitations without upgrading unproven claims.
+
+When a Chinese edition exists, the exhibit links to its independently maintained route in `NoctilumeDev-ZH`. No placeholder or dead language link is created while that edition is absent.
 
 See [English Documentation](docs/ENGLISH_DOCUMENTATION.md).
 

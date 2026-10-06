@@ -11,7 +11,7 @@ G3A — Language and Profile Split
       English canonical Profile and provenance-bound Chinese edition
 
 G3B — Project Route Migration
-      Move one project route only after that exhibit is PROFILE_ROUTABLE
+      Move each language route only after EN_PROFILE_ROUTABLE or ZH_PROFILE_ROUTABLE
 
 G3C — Discoverability Metadata
       Align descriptions, Topics, and stable search vocabulary with their owners

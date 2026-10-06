@@ -141,6 +141,9 @@ for (const marker of [
   "G3A — Language and Profile Split",
   "G3B — Project Route Migration",
   "G3C — Discoverability Metadata",
+  "EN_PROFILE_ROUTABLE",
+  "ZH_PROFILE_ROUTABLE",
+  "An English exhibit does not wait for translation.",
   "it does not qualify a project or authorize a Gallery route",
 ]) {
   if (!informationArchitecture.includes(marker)) {
@@ -179,5 +182,7 @@ if (errors.length > 0) {
 console.log(
   `Gallery structure verification passed: ${galleryState.projectionCount} projection(s), ` +
     `${galleryState.candidateCount} active candidate(s), ` +
-    `${galleryState.catalogedCount} cataloged exhibit(s).`,
+    `${galleryState.catalogedCount} cataloged exhibit(s), ` +
+    `${galleryState.englishRoutableCount} English-routable exhibit(s), ` +
+    `${galleryState.chineseRoutableCount} Chinese-routable exhibit(s).`,
 );

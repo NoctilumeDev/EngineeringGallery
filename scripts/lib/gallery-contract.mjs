@@ -703,6 +703,26 @@ function isIsoDate(value) {
   return !Number.isNaN(parsed.valueOf()) && parsed.toISOString().slice(0, 10) === value;
 }
 
+export function validateChineseEditionLink(readme, record, fileName) {
+  if (typeof readme !== "string") fail(`${fileName}: released README must be text`);
+  const stableChineseUrl =
+    `https://github.com/NoctilumeDev/NoctilumeDev-ZH/tree/main/projects/${record.slug}`;
+  if (record.chineseEdition === null) {
+    if (readme.includes(stableChineseUrl)) {
+      fail(`${fileName}: released README exposes a Chinese route while chineseEdition is null`);
+    }
+    return;
+  }
+
+  const visibleChineseLink = new RegExp(
+    `\\[[^\\]]*(?:中文说明|Chinese edition)[^\\]]*\\]\\(${escapeRegExp(stableChineseUrl)}\\)`,
+    "u",
+  );
+  if (!visibleChineseLink.test(readme)) {
+    fail(`${fileName}: released README does not expose the verified Chinese edition route`);
+  }
+}
+
 export function validateCatalogRecord(record, fileName, { galleryRoot, projectsBySlug, verifyGitRefs }) {
   assertObject(record, fileName);
   assertExactKeys(
@@ -721,7 +741,7 @@ export function validateCatalogRecord(record, fileName, { galleryRoot, projectsB
     ],
     fileName,
   );
-  if (record.schemaVersion !== 1) fail(`${fileName}.schemaVersion must be 1`);
+  if (record.schemaVersion !== 2) fail(`${fileName}.schemaVersion must be 2`);
   const slug = assertSafeRelativePath(record.slug, `${fileName}.slug`);
   if (slug.includes("/")) fail(`${fileName}.slug must be one path segment`);
   if (fileName !== `${slug}.json`) fail(`${fileName}: file name must match slug ${slug}.json`);
@@ -772,40 +792,42 @@ export function validateCatalogRecord(record, fileName, { galleryRoot, projectsB
     fail(`${fileName}.qualification.conclusion must be success`);
   }
 
-  assertObject(record.chineseEdition, `${fileName}.chineseEdition`);
-  assertExactKeys(
-    record.chineseEdition,
-    ["url", "basedOnRelease", "sourceGalleryCommit", "editionRevision", "lastSynchronized"],
-    `${fileName}.chineseEdition`,
-  );
-  const chineseUrl = assertHttpsUrl(record.chineseEdition.url, `${fileName}.chineseEdition.url`);
-  if (
-    chineseUrl.hostname !== "github.com" ||
-    chineseUrl.pathname.replace(/\/$/u, "") !==
-      `/NoctilumeDev/NoctilumeDev-ZH/tree/main/projects/${slug}`
-  ) {
-    fail(`${fileName}.chineseEdition.url must use the stable NoctilumeDev-ZH project route`);
-  }
-  const chineseReleasePattern = new RegExp(
-    `^${escapeRegExp(slug)}-v(\\d+\\.\\d+\\.\\d+(?:-[0-9A-Za-z.-]+)?)$`,
-    "u",
-  );
-  const chineseReleaseMatch = record.chineseEdition.basedOnRelease.match(chineseReleasePattern);
-  if (!chineseReleaseMatch) {
-    fail(`${fileName}.chineseEdition.basedOnRelease must be a project-scoped Gallery tag`);
-  }
-  if (!SHA_PATTERN.test(record.chineseEdition.sourceGalleryCommit)) {
-    fail(`${fileName}.chineseEdition.sourceGalleryCommit must be an exact SHA`);
-  }
-  if (
-    !new RegExp(`^zh-v${escapeRegExp(chineseReleaseMatch[1])}-r[1-9]\\d*$`, "u").test(
-      record.chineseEdition.editionRevision,
-    )
-  ) {
-    fail(`${fileName}.chineseEdition.editionRevision does not match its source Release`);
-  }
-  if (!isIsoDate(record.chineseEdition.lastSynchronized)) {
-    fail(`${fileName}.chineseEdition.lastSynchronized must use YYYY-MM-DD`);
+  if (record.chineseEdition !== null) {
+    assertObject(record.chineseEdition, `${fileName}.chineseEdition`);
+    assertExactKeys(
+      record.chineseEdition,
+      ["url", "basedOnRelease", "sourceGalleryCommit", "editionRevision", "lastSynchronized"],
+      `${fileName}.chineseEdition`,
+    );
+    const chineseUrl = assertHttpsUrl(record.chineseEdition.url, `${fileName}.chineseEdition.url`);
+    if (
+      chineseUrl.hostname !== "github.com" ||
+      chineseUrl.pathname.replace(/\/$/u, "") !==
+        `/NoctilumeDev/NoctilumeDev-ZH/tree/main/projects/${slug}`
+    ) {
+      fail(`${fileName}.chineseEdition.url must use the stable NoctilumeDev-ZH project route`);
+    }
+    const chineseReleasePattern = new RegExp(
+      `^${escapeRegExp(slug)}-v(\\d+\\.\\d+\\.\\d+(?:-[0-9A-Za-z.-]+)?)$`,
+      "u",
+    );
+    const chineseReleaseMatch = record.chineseEdition.basedOnRelease.match(chineseReleasePattern);
+    if (!chineseReleaseMatch) {
+      fail(`${fileName}.chineseEdition.basedOnRelease must be a project-scoped Gallery tag`);
+    }
+    if (!SHA_PATTERN.test(record.chineseEdition.sourceGalleryCommit)) {
+      fail(`${fileName}.chineseEdition.sourceGalleryCommit must be an exact SHA`);
+    }
+    if (
+      !new RegExp(`^zh-v${escapeRegExp(chineseReleaseMatch[1])}-r[1-9]\\d*$`, "u").test(
+        record.chineseEdition.editionRevision,
+      )
+    ) {
+      fail(`${fileName}.chineseEdition.editionRevision does not match its source Release`);
+    }
+    if (!isIsoDate(record.chineseEdition.lastSynchronized)) {
+      fail(`${fileName}.chineseEdition.lastSynchronized must use YYYY-MM-DD`);
+    }
   }
 
   const currentLock = projectsBySlug.get(slug);
@@ -849,20 +871,30 @@ export function validateCatalogRecord(record, fileName, { galleryRoot, projectsB
       fail(`${fileName}: catalog identity does not match the released projection lock`);
     }
 
-    const chineseTagResult = runGit(
+    const readmeAtTag = runGit(
       galleryRoot,
-      ["rev-parse", "--verify", `refs/tags/${record.chineseEdition.basedOnRelease}^{commit}`],
-      { allowFailure: true },
+      ["show", `${record.gallery.tag}:${record.projectPath}/README.md`],
+      { binary: true, allowFailure: true },
     );
-    if (chineseTagResult.status !== 0) {
-      fail(`${fileName}: Chinese edition source tag is not available locally`);
-    }
-    const chineseSourceCommit = chineseTagResult.stdout.trim();
-    if (chineseSourceCommit !== record.chineseEdition.sourceGalleryCommit) {
-      fail(
-        `${fileName}: Chinese edition source tag resolves to ${chineseSourceCommit}, ` +
-          `not ${record.chineseEdition.sourceGalleryCommit}`,
+    if (readmeAtTag.status !== 0) fail(`${fileName}: release tag does not contain the project README`);
+    validateChineseEditionLink(readmeAtTag.stdout.toString("utf8"), record, fileName);
+
+    if (record.chineseEdition !== null) {
+      const chineseTagResult = runGit(
+        galleryRoot,
+        ["rev-parse", "--verify", `refs/tags/${record.chineseEdition.basedOnRelease}^{commit}`],
+        { allowFailure: true },
       );
+      if (chineseTagResult.status !== 0) {
+        fail(`${fileName}: Chinese edition source tag is not available locally`);
+      }
+      const chineseSourceCommit = chineseTagResult.stdout.trim();
+      if (chineseSourceCommit !== record.chineseEdition.sourceGalleryCommit) {
+        fail(
+          `${fileName}: Chinese edition source tag resolves to ${chineseSourceCommit}, ` +
+            `not ${record.chineseEdition.sourceGalleryCommit}`,
+        );
+      }
     }
   }
 
@@ -914,6 +946,10 @@ export function verifyGalleryStructure(galleryRoot, { verifyGitRefs = true } = {
     projectionCount: projectsBySlug.size,
     candidateCount,
     catalogedCount: catalogBySlug.size,
+    englishRoutableCount: catalogBySlug.size,
+    chineseRoutableCount: [...catalogBySlug.values()].filter(
+      (record) => record.chineseEdition !== null,
+    ).length,
     projectsBySlug,
     catalogBySlug,
   };

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "slug": "project-slug",
   "displayName": "Project Name",
   "version": "1.0.0",
@@ -20,11 +20,5 @@
     "headSha": "0000000000000000000000000000000000000000",
     "conclusion": "success"
   },
-  "chineseEdition": {
-    "url": "https://github.com/NoctilumeDev/NoctilumeDev-ZH/tree/main/projects/project-slug",
-    "basedOnRelease": "project-slug-v1.0.0",
-    "sourceGalleryCommit": "0000000000000000000000000000000000000000",
-    "editionRevision": "zh-v1.0.0-r1",
-    "lastSynchronized": "2000-01-01"
-  }
+  "chineseEdition": null
 }

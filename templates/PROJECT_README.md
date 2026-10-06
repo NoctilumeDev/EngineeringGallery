@@ -2,7 +2,7 @@
 
 One sentence describing the released project in user-facing terms.
 
-[中文说明 / Chinese edition](https://github.com/NoctilumeDev/NoctilumeDev-ZH/tree/main/projects/project-slug)
+<!-- Add a visible Chinese-edition link here only after that route exists and passes readback. -->
 
 ## Demo / Preview
 
