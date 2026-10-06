@@ -10,7 +10,7 @@ Hello Gallery is a synthetic room test for the public structure of Engineering G
 
 [Open the full-size preview](assets/preview.svg)
 
-> **Permanent boundary:** this page is not a software release. It represents 0 project projections and 0 cataloged exhibits. It cannot become `QUALIFIED_FOR_RELEASE`, `RELEASED`, `CATALOGED`, or `PROFILE_ROUTABLE`.
+> **Permanent boundary:** this page is not a software release. It represents 0 project projections and 0 cataloged exhibits. It cannot become `QUALIFIED_FOR_RELEASE`, `RELEASED`, `CATALOGED`, `EN_PROFILE_ROUTABLE`, or `ZH_PROFILE_ROUTABLE`.
 
 ## Overview
 
@@ -38,7 +38,7 @@ There is no product release. The reference scope is limited to:
 - one feature map and one architecture diagram;
 - control checks that preserve the permanent non-product state.
 
-It does not include a real project, a real upstream repository, a product tag, a GitHub Release, a catalog record, or a Profile route. See [Release Scope](docs/release-scope.md) for the exact boundary.
+It does not include a real project, a real upstream repository, a product tag, a GitHub Release, a catalog record, or either language's Profile route. See [Release Scope](docs/release-scope.md) for the exact boundary.
 
 ## Quick Start
 

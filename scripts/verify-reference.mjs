@@ -78,6 +78,8 @@ for (const requiredClaim of [
   "0 project projections",
   "0 cataloged exhibits",
   "REFERENCE_SPECIMEN",
+  "EN_PROFILE_ROUTABLE",
+  "ZH_PROFILE_ROUTABLE",
 ]) {
   if (!showroom.includes(requiredClaim)) {
     errors.push(`README.md is missing required boundary text: ${requiredClaim}`);

@@ -46,8 +46,8 @@ A release requires all of the following:
 8. the release contents are read back from exact Gallery `main` after merge;
 9. the exact-main qualification run establishes `QUALIFIED_FOR_RELEASE`;
 10. the project-scoped tag and GitHub Release are created and read back;
-11. a usable Chinese edition exposes the exact Gallery Release on which it is based;
-12. a catalog record binds those identities and makes the exhibit public.
+11. a catalog record binds the release identities and makes the English exhibit public;
+12. when a Chinese edition exists, its route and exact Gallery source Release are independently read back before Chinese routing is authorized.
 
 A successful file copy or repository CI run is not, by itself, release qualification.
 
@@ -57,12 +57,16 @@ The lifecycle remains explicit:
 PROJECTION_CANDIDATE
         -> QUALIFIED_FOR_RELEASE
         -> RELEASED
-        -> CHINESE_EDITION_AVAILABLE
         -> CATALOGED
-        -> PROFILE_ROUTABLE
+        -> EN_PROFILE_ROUTABLE
+
+CATALOGED + CHINESE_EDITION_AVAILABLE
+        -> ZH_PROFILE_ROUTABLE
 ```
 
-The Chinese edition may intentionally lag behind the current English Release. Its catalog binding records the older source tag and commit honestly; it is not forced to pretend that eventual consistency is strong consistency.
+The Chinese edition may be absent or intentionally lag behind the current English Release. Absence does not block the English catalog or English Profile route. When the edition exists, its catalog binding records the actual source tag and commit honestly; it is not forced to pretend that eventual consistency is strong consistency.
+
+If the currently cataloged Release does not yet contain the visible Chinese link, adding that link is a Gallery documentation change and therefore follows the normal patch-release path. The Chinese edition may legitimately remain based on the preceding Release when the patch changes only the cross-language route.
 
 The current project directory may also move ahead as the next candidate while the catalog remains bound to the last immutable Release. Public links follow the cataloged tag or Release until the newer candidate completes the lifecycle.
 

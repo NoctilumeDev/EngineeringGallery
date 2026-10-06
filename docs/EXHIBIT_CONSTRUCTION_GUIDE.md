@@ -70,7 +70,9 @@ projection directory present
 != qualified for release
 != release published
 != catalog entry effective
-!= Profile routing authorized
+!= English Profile routing authorized
+!= Chinese edition available
+!= Chinese Profile routing authorized
 ```
 
 A local verifier may prove structure and content integrity. It must not call a project qualified merely because a directory exists.
@@ -81,14 +83,18 @@ The lifecycle is:
 PROJECTION_CANDIDATE
         -> QUALIFIED_FOR_RELEASE
         -> RELEASED
-        -> CHINESE_EDITION_AVAILABLE
         -> CATALOGED
-        -> PROFILE_ROUTABLE
+        -> EN_PROFILE_ROUTABLE
+
+CATALOGED + CHINESE_EDITION_AVAILABLE
+        -> ZH_PROFILE_ROUTABLE
 ```
 
 An exact-main qualification run can establish `QUALIFIED_FOR_RELEASE` for one exact Gallery commit. It cannot prove that a future tag or GitHub Release already exists.
 
-After the tag and Release are created and read back, the independently versioned Chinese edition is bound to that released coordinate. A catalog record then binds the exact Gallery commit, exact upstream coordinate, successful qualification run, project-scoped tag, published Release, and stable Chinese-edition route. Only then does the exhibit become `CATALOGED`.
+After the tag and Release are created and read back, a catalog record binds the exact Gallery commit, exact upstream coordinate, successful qualification run, project-scoped tag, and published Release. This establishes `CATALOGED` and authorizes the English Profile route.
+
+The independently versioned Chinese edition is a separate language projection. When it exists, it is bound to a released coordinate. Its visible link is then added through the normal Gallery release path, and the catalog localization binding is added only after both routes pass readback. That additional binding authorizes the Chinese Profile route; its absence does not revoke the English exhibit.
 
 The Gallery should report separate counts for project projections and cataloged exhibits. It should not compress these states into a single `qualified: true` flag.
 
@@ -124,7 +130,7 @@ Release scope:
 Explicit exclusions:
 Required environment:
 Preview form:
-Chinese edition location and source release:
+Chinese edition location and source release, or explicitly not yet available:
 Quick Start command and expected result:
 Project-specific qualification gates:
 License and notice position:
@@ -139,7 +145,7 @@ The `Adaptations from this guide` field is important. A deviation is not automat
 
 Do not permanently copy this construction record into the released project unless it helps a user understand or operate the release. The pull request preserves the construction discussion; the exhibit preserves the release result.
 
-Repository descriptions and Topics follow the separate [G3C discoverability agreement](DISCOVERABILITY_METADATA.md). They may be improved before an exhibit exists, but they do not establish `QUALIFIED_FOR_RELEASE`, `CATALOGED`, or `PROFILE_ROUTABLE`.
+Repository descriptions and Topics follow the separate [G3C discoverability agreement](DISCOVERABILITY_METADATA.md). They may be improved before an exhibit exists, but they do not establish `QUALIFIED_FOR_RELEASE`, `CATALOGED`, `EN_PROFILE_ROUTABLE`, or `ZH_PROFILE_ROUTABLE`.
 
 ## 6. Design the exhibit as two reading layers
 
@@ -147,7 +153,7 @@ Repository descriptions and Topics follow the separate [G3C discoverability agre
 
 `projects/<slug>/README.md` is a compact public landing page. Its recommended order is:
 
-1. **Overview** — one sentence that identifies the project and its public role, plus a visible link to the Chinese edition.
+1. **Overview** — one sentence that identifies the project and its public role, plus a visible Chinese-edition link only when that independent route exists.
 2. **Demo / Preview** — a live link, screenshots, a short recording, a replay, or an honest statement that no public demo is provided.
 3. **Current Release Scope** — supported behavior, exclusions, and known limitations.
 4. **Quick Start** — requirements, minimal configuration, commands, and the expected successful result.
@@ -292,7 +298,7 @@ Technical identifiers and protocol literals remain stable across language editio
 
 ### Bilingual access without bilingual ownership
 
-Every Gallery exhibit is English-only by default. Near the top of its README, it provides one visible route:
+Every Gallery exhibit is English-only by default. When a verified Chinese edition exists, the English README provides one visible route near the top:
 
 ```text
 中文说明 / Chinese edition
@@ -303,6 +309,8 @@ The default destination is the corresponding project path in `NoctilumeDev-ZH`, 
 ```text
 NoctilumeDev-ZH/projects/<slug>/
 ```
+
+Before that route exists, omit the link entirely. Do not create a placeholder page, dead link, or translation claim merely to make the two language surfaces look symmetrical. A root-level Chinese-exhibit index is added only after the corresponding target exists in `NoctilumeDev-ZH`.
 
 Do not place a full Chinese mirror under `EngineeringGallery/projects/<slug>/docs/zh/`. That would make the Gallery own two language projections and reintroduce the synchronization problem that the repository boundary is intended to remove.
 
@@ -334,7 +342,9 @@ It also records:
 - its own edition revision or update date;
 - a visible route back to the current English exhibit.
 
-The first public catalog entry requires a usable Chinese edition at the declared stable route. Later English Releases do not require same-day translation, but the Chinese page must continue to state its actual base Release.
+The first public catalog entry does not require a Chinese edition. It records `chineseEdition: null` until a usable independent edition exists. The English exhibit may become `CATALOGED` and `EN_PROFILE_ROUTABLE` while translation remains absent.
+
+When a Chinese edition is published, first read back its stable route. If the current Gallery Release does not already contain the visible link, add the link through a documentation patch release and read back that immutable Release. Only then update the catalog localization binding. That binding establishes `ZH_PROFILE_ROUTABLE`. Later English Releases do not require same-day translation, but an existing Chinese page must continue to state its actual base Release.
 
 When an English Release changes facts that affect the Chinese explanation, record translation debt in the Chinese-edition repository. Updating that edition later binds it to the newer source coordinate and restores convergence. A Chinese wording correction changes only the Chinese edition and does not mutate English release facts.
 
@@ -375,18 +385,24 @@ candidate pull request
         -> QUALIFIED_FOR_RELEASE
         -> create project-scoped tag and Release
         -> read back tag and Release
-        -> publish or update Chinese edition against that Release
-        -> read back the stable Chinese-edition route
         -> create catalog record
         -> CATALOGED
-        -> optional Profile route change
+        -> EN_PROFILE_ROUTABLE
+
+optional independent language path:
+        publish or update Chinese edition against a Gallery Release
+        -> read back the stable Chinese-edition route
+        -> add the visible link through a Gallery patch release when needed
+        -> read back the released English link
+        -> update catalog localization binding
+        -> ZH_PROFILE_ROUTABLE
 ```
 
 Candidate checks do not inherit exact-main identity. The qualification run proves that one exact commit is eligible to be released. It does not make the Release exist.
 
 The tag and GitHub Release are created only after that run succeeds. They are then read back before the catalog record is written. The catalog verifier checks every binding before the record becomes effective.
 
-A published Release does not automatically authorize a Profile route if the catalog record is absent or inconsistent.
+A published Release does not automatically authorize an English Profile route if the catalog record is absent or inconsistent. A Chinese page does not authorize a Chinese Profile route until its source binding is also present and verified in that record.
 
 Use project-scoped tags such as `<project-slug>-v1.0.0`. Laboratory milestone names remain upstream unless a user genuinely needs them to understand the release.
 
@@ -402,8 +418,10 @@ A catalog entry should bind:
 - Gallery release tag and exact commit;
 - exact upstream source coordinate;
 - successful exact-main qualification run;
-- published release URL.
-- stable Chinese-edition URL and its declared base Release.
+- published release URL;
+- `chineseEdition: null`, or a stable Chinese-edition URL and its declared base Release after that route passes readback.
+
+When `chineseEdition` is present, the verifier reads the project README from the immutable tag in the catalog record and requires that Release to expose the same stable Chinese route. It does not infer language availability from a newer candidate on `main`.
 
 A complete candidate directory may exist before catalog publication, but it must not be counted or described as a qualified exhibit. Empty placeholders and future-project cards remain prohibited.
 
@@ -415,6 +433,8 @@ The structural verifier reports these dimensions independently:
 project projections
 active candidates
 cataloged exhibits
+English-routable exhibits
+Chinese-routable exhibits
 ```
 
 If the current projection lock differs from the lock bound by the catalog record, the project remains cataloged at its older Release while also carrying a newer active candidate.
@@ -496,10 +516,10 @@ An exhibit construction round is complete only when:
 - fresh-clone Quick Start succeeds at the required environment boundary;
 - exact Gallery `main` has been read back and reached `QUALIFIED_FOR_RELEASE`;
 - the project-scoped tag and Release have been created and read back;
-- a usable Chinese edition exists at its stable route and declares the exact Gallery Release on which it is based;
 - the catalog record refers to the exact source, Gallery commit, qualification run, tag, and Release;
 - the exhibit has reached `CATALOGED`;
-- any Profile route change occurs only after the catalog state is effective;
+- the English Profile route changes only after `EN_PROFILE_ROUTABLE` is effective;
+- when a Chinese route is requested, a usable edition exists at its stable route, declares its actual Gallery source Release, the cataloged English Release exposes that route, and the pair has reached `ZH_PROFILE_ROUTABLE`;
 - the working tree is clean and no temporary export material remains.
 
 Completion of one exhibit does not qualify another. Each project carries its own source facts, risks, dependencies, and release boundary.
@@ -518,7 +538,8 @@ Their state is always `REFERENCE_SPECIMEN`. They never become:
 QUALIFIED_FOR_RELEASE
 RELEASED
 CATALOGED
-PROFILE_ROUTABLE
+EN_PROFILE_ROUTABLE
+ZH_PROFILE_ROUTABLE
 ```
 
 The verifier excludes `reference/**` from projection, candidate, and catalog counts. A specimen may be polished enough to test the room, but it must remain visibly synthetic and must not receive a project-scoped product Release.

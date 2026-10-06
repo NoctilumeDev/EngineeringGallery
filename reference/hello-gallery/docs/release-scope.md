@@ -16,7 +16,7 @@
 - project qualification evidence;
 - product tag or GitHub Release;
 - catalog entry;
-- Profile route;
+- English or Chinese Profile route;
 - any claim that a real Gallery project is available.
 
 The specimen remains useful after real exhibits arrive because it isolates Gallery presentation changes from product facts.

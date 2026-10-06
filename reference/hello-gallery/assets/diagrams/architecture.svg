@@ -93,7 +93,8 @@
         <rect y="104" width="226" height="42" rx="8" fill="#151b25" stroke="#f5b96a" stroke-opacity="0.15"/>
         <text x="15" y="130" fill="#758298" text-decoration="line-through">catalog/exhibits</text>
         <rect y="156" width="226" height="42" rx="8" fill="#151b25" stroke="#f5b96a" stroke-opacity="0.15"/>
-        <text x="15" y="182" fill="#758298" text-decoration="line-through">PROFILE_ROUTABLE</text>
+        <text x="15" y="175" fill="#758298" font-size="13" text-decoration="line-through">EN_PROFILE_ROUTABLE</text>
+        <text x="15" y="193" fill="#758298" font-size="13" text-decoration="line-through">ZH_PROFILE_ROUTABLE</text>
       </g>
       <text x="24" y="313" fill="#f5b96a" font-size="11" font-weight="700">NO TRANSITION</text>
     </g>

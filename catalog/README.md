@@ -10,8 +10,20 @@ A catalog record is added only after:
 exact-main qualification run succeeds
         -> project-scoped tag and Release are created
         -> tag and Release are read back
-        -> a usable Chinese edition declares its actual source Release
-        -> every identity is bound in the catalog record
+        -> release identities are bound in the catalog record
+        -> CATALOGED
+        -> EN_PROFILE_ROUTABLE
 ```
 
 The record does not upgrade a candidate retroactively. It makes an already published and verified release discoverable as a cataloged exhibit.
+
+`chineseEdition` is `null` until an independently maintained Chinese page exists and passes readback. A verified language binding may be added later:
+
+```text
+CATALOGED + verified Chinese edition
+        -> release the visible link in the English exhibit
+        -> catalog localization binding
+        -> ZH_PROFILE_ROUTABLE
+```
+
+An absent translation does not block English catalog admission. An incomplete, dead, or falsely synchronized translation cannot authorize Chinese routing. The verifier checks the immutable released README named by the catalog, not a newer candidate on mutable `main`.

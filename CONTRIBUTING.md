@@ -31,7 +31,8 @@ An exhibit addition must:
 8. pass the documented Quick Start from a fresh Gallery clone;
 9. record the run evidence in the release pull request;
 10. create a project-scoped release only after merge and exact-main readback;
-11. bind a usable Chinese edition and add a catalog record only after Release readback.
+11. add the catalog record after Release readback, using `chineseEdition: null` when no verified Chinese route exists;
+12. after the independent edition passes readback, add its visible link through the normal Gallery release path and then bind that released route in the catalog.
 
 Use the files under [`templates/`](templates/PROJECT_README.md) as the starting contract. A placeholder directory is not an exhibit and should not be committed.
 
